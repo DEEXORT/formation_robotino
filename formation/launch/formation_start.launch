@@ -1,0 +1,42 @@
+<launch>
+    <!-- Turtlesim Node-->
+    <node pkg="omniturtle" type="turtlesim_node" name="sim"/>
+
+    <!-- Robotino Node -->
+
+    <!-- <node pkg="robotino_node" type="robotino_node" name="sim">
+    <param name="hostname" value="192.168.1.100" type="string"/>
+    </node> -->
+
+    <!-- <node pkg="turtlesim" type="turtle_teleop_key" name="teleop" output="screen"/> -->
+
+
+    <!-- tf -->
+    
+    <node name="turtle1_tf_broadcaster" pkg="formation" type="formation_turtle_tf_broadcaster.py" respawn="false" output="screen" >
+      <param name="turtle" type="string" value="turtle1" />
+    </node>
+    <node name="turtle2_tf_broadcaster" pkg="formation" type="formation_turtle_tf_broadcaster.py" respawn="false" output="screen" >
+      <param name="turtle" type="string" value="turtle2" /> 
+    </node>
+    <!-- <node name="turtle3_tf_broadcaster" pkg="formation" type="formation_turtle_tf_broadcaster.py" respawn="false" output="screen" >
+      <param name="turtle" type="string" value="turtle3" /> 
+    </node> -->
+
+    
+
+    <node pkg="formation" type="formation_turtle_tf_listener_1.py" name="listener_1" output="screen"/>
+    <!-- <node pkg="formation" type="formation_turtle_tf_listener_2.py" name="listener_2" output="screen"/> -->
+
+    <node pkg="formation" type="formation_fixed_tf_broadcaster.py" name="broadcaster_fixed_1" respawn="false" output="screen" >
+      <param name="carrot" type="string" value="carrot1" /> 
+      <param name="turtle" type="string" value="turtle1" />
+    </node>
+    <!-- <node pkg="formation" type="formation_fixed_tf_broadcaster.py" name="broadcaster_fixed_2" respawn="false" output="screen" >
+      <param name="carrot" type="string" value="carrot2" /> 
+      <param name="turtle" type="string" value="turtle1" />
+    </node> -->
+
+    <node pkg="rviz" type="rviz" name="rviz" args="-d $(find formation)/rviz/formation2.rviz" />
+
+  </launch>

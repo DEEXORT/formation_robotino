@@ -1,0 +1,57 @@
+<launch>
+  <include file="$(find robotino_node)/launch/robotino_node.launch" ns="robot_1"/>
+  <include file="$(find robotino_node)/launch/robotino_node2.launch" ns="robot_2"/>
+  <include file="$(find robot_pose_ekf)/robot_pose_ekf.launch" />
+	<!-- <node pkg="robotino_node" type="robotino_node.launch" name="robotino_node">
+		<param name="hostname" value="192.168.1.100" type="string" />
+	</node> -->
+
+	<!-- Keyboard Teleop Node -->
+  <node pkg="robotino_teleop" type="keyboard_teleop_node"
+    name="keyboard_teleop_node" output="screen" ns="robot_1">
+    <remap from="/cmd_vel" to="/robot_1/cmd_vel" />
+    <!-- Scale -->
+    <param name="scale_linear" value="10.0" type="double" />
+    <param name="scale_angular" value="1.0" type="double" />
+  </node>
+
+  <!-- <node pkg="robot_pose_ekf" type="robot_pose_ekf" name="robot_pose_ekf">
+  <param name="output_frame" value="odom_combined"/>
+  <param name="base_footprint_frame" value="base_footprint"/>
+  <param name="freq" value="30.0"/>
+  <param name="sensor_timeout" value="1.0"/>  
+  <param name="odom_used" value="true"/>
+  <param name="imu_used" value="true"/>
+  <param name="vo_used" value="true"/>
+
+  <remap from="odom" to="pr2_base_odometry/odom" />
+  </node> -->
+
+	<!-- tf -->
+    
+    <node name="robot1_tf_broadcaster" pkg="formation" type="formation_turtle_tf_broadcaster.py" respawn="false" output="screen" >
+      <param name="robot" type="string" value="robot_1" />
+    </node>
+    <node name="robot2_tf_broadcaster" pkg="formation" type="formation_turtle_tf_broadcaster.py" respawn="false" output="screen" >
+      <param name="robot" type="string" value="robot_2" /> 
+    </node>
+    <!-- <node name="turtle3_tf_broadcaster" pkg="formation" type="formation_turtle_tf_broadcaster.py" respawn="false" output="screen" >
+      <param name="turtle" type="string" value="turtle3" /> 
+    </node> -->
+
+    <node pkg="formation" type="formation_turtle_tf_listener_1.py" name="listener_1" output="screen"/>
+    <!-- <node pkg="formation" type="formation_turtle_tf_listener_2.py" name="listener_2" output="screen"/> -->
+
+    <node pkg="formation" type="formation_fixed_tf_broadcaster.py" name="broadcaster_fixed_1" respawn="false" output="screen" >
+      <param name="target" type="string" value="target_1" /> 
+      <param name="robot" type="string" value="robot_1" />
+    </node>
+    <!-- <node pkg="formation" type="formation_fixed_tf_broadcaster.py" name="broadcaster_fixed_2" respawn="false" output="screen" >
+      <param name="target" type="string" value="target_2" /> 
+      <param name="robot" type="string" value="robot_1" />
+    </node> -->
+
+    <node pkg="rviz" type="rviz" name="rviz" args="-d $(find formation)/rviz/formation.rviz" />
+    <!-- <node pkg="rviz" type="rviz" name="rviz" args="-d $(find formation)/rviz/formation2.rviz" /> -->
+
+</launch>
