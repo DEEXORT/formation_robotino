@@ -1,0 +1,6 @@
+# Rescue Logfile. Created by GNU ddrescue version 1.17
+# Command line: ddrescue -r 1 /dev/sdc1 /home/deexort/robotino.iso report
+# current_pos  current_status
+0xEB520000     +
+#      pos        size  status
+0x00000000  0xEB523400  +

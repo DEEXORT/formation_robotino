@@ -1,0 +1,4 @@
+---
+float32 current      # the current power drain
+float32 voltage      # battery voltage
+bool battery_low     # true if battery low, else another

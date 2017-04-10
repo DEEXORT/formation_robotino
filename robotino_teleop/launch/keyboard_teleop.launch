@@ -1,0 +1,10 @@
+<launch>
+	<!-- Keyboard Teleop Node -->
+	<node pkg="robotino_teleop" type="keyboard_teleop_node"
+		name="keyboard_teleop_node" output="screen" >
+		<!-- <remap from="/cmd_vel" to="/robot_1/cmd_vel" /> -->
+		<!-- Scale -->
+		<param name="scale_linear" value="10.0" type="double" />
+		<param name="scale_angular" value="1.0" type="double" />
+	</node>
+</launch>
