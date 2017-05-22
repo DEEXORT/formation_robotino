@@ -7,14 +7,15 @@ import tf
 import geometry_msgs.msg
 import robotino_msgs.msg
 import omniturtle.srv
+import nav_msgs.msg
 from nav_msgs.msg import Odometry
 
-data = {}
+# data = {}
 
-def position(msg):
-    data['position_x'] = msg.pose.position.x
-    data['position_y'] = msg.pose.position.y
-    data['orientation_z'] = msg.pose.orientation.z 
+# def position(msg):
+#     data['position_x'] = msg.pose.pose.position.x
+#     data['position_y'] = msg.pose.pose.position.y
+#     data['orientation_z'] = msg.pose.pose.orientation.z 
 
 def callback(msg):
     global pose
@@ -37,7 +38,8 @@ if __name__ == '__main__':
     rate = rospy.Rate(10.0)
     # listener.waitForTransform("/turtle2", "/carrot1", rospy.Time(), rospy.Duration(4.0))
     # sub = rospy.Subscriber('robot_1/north_star', robotino_msgs.msg.NorthStarReadings, position)
-    sub = rospy.Subscriber('robot_1/robot_pose_ekf/odom_combined', geometry_msgs.msg.PoseWithCovarianceStamped, position)
+    # sub = rospy.Subscriber('/robot_1/odom', nav_msgs.msg.Odometry, position)
+    # sub = rospy.Subscriber('robot_1/robot_pose_ekf/odom_combined', geometry_msgs.msg.PoseWithCovarianceStamped, position)
 
 
     while not rospy.is_shutdown():
@@ -49,6 +51,7 @@ if __name__ == '__main__':
         cmd = geometry_msgs.msg.Twist()
         # cmd.linear.x = (pose.x - trans[0]) * p
         # cmd.linear.y = (pose.y - trans[1]) * p
+        # if (trans[0]**2+trans[1]**2)**.5 > 0.2:
         cmd.linear.x = p * trans[0]
         cmd.linear.y = p * trans[1]
         # cmd.angular.z = b * math.atan2(trans[1], trans[0])

@@ -1,7 +1,10 @@
 <launch>
-  <include file="$(find robotino_node)/launch/robotino_node.launch" ns="robot_1"/>
+  <!-- <include file="$(find robotino_node)/launch/robotino_node.launch" ns="robot_1"/> -->
   <include file="$(find robotino_node)/launch/robotino_node2.launch" ns="robot_2"/>
   <include file="$(find robot_pose_ekf)/robot_pose_ekf.launch" />
+  <include file="$(find robot_pose_ekf)/robot_pose_ekf2.launch" />
+  <!-- <include file="$(find robotino_teleop)/launch/joystick_teleop.launch" /> -->
+
 	<!-- <node pkg="robotino_node" type="robotino_node.launch" name="robotino_node">
 		<param name="hostname" value="192.168.1.100" type="string" />
 	</node> -->
@@ -31,9 +34,11 @@
     
     <node name="robot1_tf_broadcaster" pkg="formation" type="formation_turtle_tf_broadcaster.py" respawn="false" output="screen" >
       <param name="robot" type="string" value="robot_1" />
+      <param name="number" type="string" value="1" />
     </node>
     <node name="robot2_tf_broadcaster" pkg="formation" type="formation_turtle_tf_broadcaster.py" respawn="false" output="screen" >
       <param name="robot" type="string" value="robot_2" /> 
+      <param name="number" type="string" value="2" />
     </node>
     <!-- <node name="turtle3_tf_broadcaster" pkg="formation" type="formation_turtle_tf_broadcaster.py" respawn="false" output="screen" >
       <param name="turtle" type="string" value="turtle3" /> 
